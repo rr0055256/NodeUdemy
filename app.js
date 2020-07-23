@@ -1,9 +1,18 @@
 const http = require('http');
 
-const routes = require('./routes');
+const express = require('express');
+const { nextTick } = require('process');
 
-console.log(routes.randomText);
+const app = express()
 
-const server = http.createServer(routes.handler);
+app.use((req,res,next)=>{
+    console.log("First ");
+    next();
+});
 
-server.listen(3000);
+app.use((req,res,next)=> {
+    console.log("Second");
+    res.send(`<h1>Hello</h1>`)
+})
+
+app.listen(3000);
